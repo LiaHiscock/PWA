@@ -1,6 +1,6 @@
 {
     "name": "Media Player 3",
-    "display": "standalone",
+    "display": "minimal-ui",
     "start_url": "./index.html",
     "theme_color": "#529456",
     "background_color": "#FFFFFF",
