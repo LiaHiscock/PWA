@@ -4,10 +4,10 @@
         <meta charset="utf-8">
         <meta http-equiv="Content-Security-Policy"
               content="img-src self
-                               https://raw.githubusercontent.com/LiaHiscock/PWA/main/MediaControls/App3/purple.png 
+                               https://raw.githubusercontent.com/LiaHiscock/PWA/main/MediaControls/App3/green.png 
                                https://liahiscock.github.io/PWA/MediaControls/">
         <link rel="manifest" href="./manifest3.webmanifest">
-        <link rel="icon" href="purple.png">
+        <link rel="icon" href="green.png">
     </head>
 
     <body>
@@ -15,6 +15,8 @@
         <audio controls loop id="audio3">
             <source src="mixkit-smooth-like-jazz-24.mp3" type="audio/mpeg">
         </audio>    
+
+        <h3><a href="https://example.com/">An out of scope URL for CCT testing</a></h3>
     </body>
 
     <script src="./app3.js"></script>
@@ -22,11 +24,11 @@
         if ("mediaSession" in navigator) {
             navigator.mediaSession.metadata = new MediaMetadata({
                 title: "Relaxing guitar jazz",
-                artist: "PWA #3 purple",
+                artist: "PWA #3 green",
                 album: "album",
                 artwork: [
                     {
-                     src: "https://raw.githubusercontent.com/LiaHiscock/PWA/main/MediaControls/App3/purple.png",
+                     src: "https://raw.githubusercontent.com/LiaHiscock/PWA/main/MediaControls/App3/green.png",
                      sizes: "144x144",
                      type: "image/png",
                     },

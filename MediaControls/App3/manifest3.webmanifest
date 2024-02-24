@@ -6,11 +6,11 @@
     "background_color": "#FFFFFF",
     "icons": [
       {
-        "src": "./48x48.png",
+        "src": "./green-48x48.png",
         "sizes": "48x48"
       },
       {
-        "src": "./144x144.png",
+        "src": "./green-144x144.png",
         "sizes": "144x144"
       }
     ]
