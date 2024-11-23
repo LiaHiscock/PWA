@@ -14,9 +14,8 @@
        <button type="button" onclick="requestPermissions()" id="requestPermsButton">
         request permissions
        </button>
-       <p id="fileContent">
-            NO CONTENT YET
-       </p>
+       <br>
+       <textarea id="fileContent" placeholder="NO CONTENT YET"></textarea>
     </body>
 
     <script src="./app.js"></script>
@@ -33,7 +32,7 @@
                 const file = await fileHandle.getFile();
                 const contents = await file.text();
 
-                document.getElementById("fileContent").innerHTML(contents);
+                document.getElementById("fileContent").value = contents;
             });
         }
 
