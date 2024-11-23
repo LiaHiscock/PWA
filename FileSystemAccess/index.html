@@ -12,7 +12,7 @@
 
     <body>
        <H1>todo content</H1>
-       <button onclick="requestPermissions" id="requestPermsButton">
+       <button type="button" onclick="requestPermissions()" id="requestPermsButton">
         request permissions
        </button>
     </body>
@@ -20,7 +20,19 @@
     <script src="./app.js"></script>
     <script>
         function requestPermissions() {
-             console.log("requested permissions");
+            console.log("requested permissions");
+
+            let fileHandle;
+            let requestPermsButton = document.getElementById("requestPermsButton");
+            requestPermsButton.addEventListener('click', async () => {
+                // Destructure the one-element array.
+                [fileHandle] = await window.showOpenFilePicker();
+                // Do something with the file handle.
+                const file = await fileHandle.getFile();
+                const contents = await file.text();
+
+                console.log(contents);
+            });
         }
 
     </script>
