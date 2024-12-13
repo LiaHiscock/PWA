@@ -11,15 +11,24 @@
     </head>
 
     <body>
+       <h2>Test site for requesting file system access permissions </h2>
+       <img src="file_icon.jpg" height="50px">
        <button type="button" onclick="requestPermissions()" id="requestPermsButton">
         request permissions
        </button>
-       <br>
-       <textarea id="fileContent" placeholder="NO CONTENT YET"></textarea>
+       <br><br>
+       <textarea id="fileContent" rows="30" cols="50" placeholder="NO CONTENT YET"></textarea>
+       <br><br>
+       <button type="button" onclick="saveChanges()" id="saveChangesButton">
+        save changes
+       </button>
     </body>
 
     <script src="./app.js"></script>
     <script>
+        // initial setup
+        requestPermissions();
+
         function requestPermissions() {
             console.log("requested permissions");
 
@@ -34,6 +43,10 @@
 
                 document.getElementById("fileContent").value = contents;
             });
+        }
+
+        function saveChanges() {
+            console.log("saved changes");
         }
 
     </script>
