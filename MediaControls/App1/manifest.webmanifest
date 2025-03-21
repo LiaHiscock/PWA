@@ -16,6 +16,6 @@
     ],
     "related_applications": [{
         "platform": "webapp",
-        "url": "https://liahiscock.github.io/PWA/MediaControls/App1/manifest.webmanifest",
-    }],
+        "url": "https://liahiscock.github.io/PWA/MediaControls/App1/manifest.webmanifest"
+    }]
 }
