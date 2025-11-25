@@ -13,5 +13,9 @@
         "src": "./144x144.png",
         "sizes": "144x144"
       }
-    ]
+    ],
+    "related_applications": [{
+        "platform": "webapp",
+        "url": "https://liahiscock.github.io/PWA/MediaControls/App1/manifest.webmanifest"
+    }]
 }
