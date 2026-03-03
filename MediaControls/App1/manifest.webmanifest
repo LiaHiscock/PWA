@@ -1,5 +1,5 @@
 {
-    "name": "Media Player 1",
+    "name": "Media Player 1 - PREDICTABLE UPDATE",
     "display": "standalone",
     "start_url": "./index.html",
     "theme_color": "#ac1e44",
