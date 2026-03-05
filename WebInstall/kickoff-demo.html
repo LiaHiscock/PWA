@@ -99,12 +99,11 @@
         align-items: center;
         gap: 1rem;
         text-align: left;
-        transition: transform ease-in-out 0.3s, box-shadow ease-in-out 0.3s;
+        transition: box-shadow ease-in-out 0.3s;
         box-shadow: 0 0 0 var(--shadow);
       }
 
       .app_entry:hover {
-        transform: scale(1.03);
         box-shadow: 10px 10px 20px var(--shadow);
       }
 
@@ -155,13 +154,12 @@
         font-family: "Segoe UI", sans-serif;
         font-size: 1.05em;
         font-weight: 600;
-        transition: transform ease-in 0.2s, background ease-in 0.2s;
+        transition: background ease-in 0.2s;
       }
 
       install:hover {
         background: var(--accent);
         color: var(--surface);
-        transform: scale(1.05);
       }
 
       @media only screen and (max-width: 600px) {
