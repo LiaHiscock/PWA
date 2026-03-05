@@ -1,10 +1,9 @@
-const kbhlee2paramsbtn = document.getElementById("kbhlee2params");
+const navigatorButton = document.getElementById("navigatorButton");
 
-kbhlee2paramsbtn.addEventListener("click", async() => {
+navigatorButton.addEventListener("click", async() => {
   try {
     let install_url = "https://kbhlee2121.github.io/pwa/web-install/index.html";
-    let manifest_id = "https://kbhlee2121.github.io/WebInstallSample";
-    await navigator.install(install_url, manifest_id).then((result) => {
+    await navigator.install(install_url).then((result) => {
       console.log(result);
     });
   } catch (err) {
