@@ -1,7 +1,7 @@
 {
     "name": "<install> me!",
     "start_url": "./index.html",
-    "theme_color": "#529456",
+    "theme_color": "#EF88BE",
     "id": "kickoff-demo",
     "display": "standalone",
     "background_color": "#FFFFFF",
