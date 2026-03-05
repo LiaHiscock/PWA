@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&lt;install&gt; Element Demo</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f5f5f5;
+        --surface: #fff;
+        --border: #ddd;
+        --text: #1a1a1a;
+        --accent: #0078d4;
+        --success: #107c10;
+        --error: #d13438;
+        --muted: #616161;
+        --code-bg: rgba(0, 0, 0, 0.05);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #1e1e1e;
+          --surface: #2d2d2d;
+          --border: #444;
+          --text: #e0e0e0;
+          --accent: #4fc3f7;
+          --success: #4caf50;
+          --error: #ef5350;
+          --muted: #999;
+          --code-bg: rgba(255, 255, 255, 0.08);
+        }
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+
+      body { padding: 2em 1em; }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 2em;
+        font-weight: 600;
+        margin: 0 0 1.5em;
+      }
+
+      h1 code {
+        color: var(--accent);
+        font-family: "Cascadia Code", "Consolas", monospace;
+        background: none;
+        padding: 0;
+      }
+
+      .demo-section {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1.5em;
+        margin-bottom: 1.5em;
+      }
+
+      .demo-section h2 {
+        font-size: 1.1em;
+        font-weight: 600;
+        margin: 0 0 1em;
+      }
+
+      install {
+        display: inline-block;
+        padding: 10px 24px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--surface);
+        color: var(--text);
+        cursor: pointer;
+        user-select: none;
+        font-family: "Segoe UI", sans-serif;
+        font-size: 0.95em;
+        transition: box-shadow 0.15s, transform 0.15s, border-color 0.15s;
+      }
+
+      install:hover {
+        border-color: var(--accent);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        transform: translateY(-1px);
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>The <code>&lt;install&gt;</code> Element</h1>
+
+      <section class="demo-section">
+        <h2>Install This Page</h2>
+        <install id="install-self" tabindex="0">
+          Install this app
+        </install>
+      </section>
+
+      <section class="demo-section">
+        <h2>Install External App</h2>
+        <install id="install-cross" installurl="https://mustjab.github.io/" tabindex="0">
+          Install external app
+        </install>
+      </section>
+    </div>
+
+
+  </body>
+</html>
