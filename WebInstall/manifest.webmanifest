@@ -1,0 +1,12 @@
+{
+    "name": "<install> me!",
+    "start_url": "./index.html",
+    "theme_color": "#529456",
+    "background_color": "#FFFFFF",
+    "icons": [
+      {
+        "src": "./sun-48x48.png",
+        "sizes": "48x48"
+      }
+    ]
+  }
