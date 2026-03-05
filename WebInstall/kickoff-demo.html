@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="manifest" href="manifest.webmanifest" />
-    <title>&lt;install&gt; Element Demo</title>
+    <link rel="icon" type="image/png" href="sun-144x144.png" />
+    <title>&lt;install&gt; store demos</title>
     <style>
       :root {
         color-scheme: light dark;
@@ -18,6 +19,7 @@
         --error: #d13438;
         --muted: #616161;
         --code-bg: rgba(0, 0, 0, 0.05);
+        --shadow: rgba(0, 0, 0, 0.1);
       }
 
       @media (prefers-color-scheme: dark) {
@@ -32,40 +34,41 @@
           --error: #ef5350;
           --muted: #999;
           --code-bg: rgba(255, 255, 255, 0.08);
+          --shadow: rgba(0, 0, 0, 0.3);
         }
       }
 
-      * {
-        box-sizing: border-box;
-      }
+      * { box-sizing: border-box; }
 
       html, body {
         margin: 0;
         padding: 0;
-        min-height: 100%;
+        min-height: 100dvh;
         background: var(--bg);
         color: var(--text);
         font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
       }
 
       body {
-        padding: 2em 1em;
+        display: grid;
+        grid-template: min-content auto / 1fr;
+        min-height: 100dvh;
       }
 
-      .container {
-        max-width: 760px;
-        margin: 0 auto;
-      }
-
+      /* Header */
       header {
-        text-align: center;
-        margin-bottom: 2.5em;
+        padding: 1.5em 2em;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1em;
+        flex-wrap: wrap;
       }
 
       header h1 {
-        font-size: 2em;
+        font-size: 1.6em;
         font-weight: 600;
-        margin: 0 0 0.3em;
+        margin: 0;
       }
 
       header h1 code {
@@ -75,274 +78,150 @@
         padding: 0;
       }
 
-      header p {
-        color: var(--muted);
-        font-size: 1.05em;
+      /* Main grid */
+      main {
+        padding: 1em 2em;
+        max-width: 700px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+      }
+
+      /* App cards */
+      .app_entry {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 1rem;
+        padding: 1.2rem 1.5rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+        text-align: left;
+        transition: transform ease-in-out 0.3s, box-shadow ease-in-out 0.3s;
+        box-shadow: 0 0 0 var(--shadow);
+      }
+
+      .app_entry:hover {
+        transform: scale(1.03);
+        box-shadow: 10px 10px 20px var(--shadow);
+      }
+
+      .app_icon {
         margin: 0;
+        border-radius: 12px;
+        flex-shrink: 0;
       }
 
-      /* Demo sections */
-      .demo-section {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 1.5em;
-        margin-bottom: 1.5em;
+      .app_info {
+        flex: 1;
+        min-width: 0;
       }
 
-      .demo-section h2 {
-        font-size: 1.2em;
-        font-weight: 600;
-        margin: 0 0 0.5em;
-      }
-
-      .demo-section p {
-        color: var(--muted);
-        font-size: 0.95em;
-        margin: 0 0 1em;
-        line-height: 1.5;
-      }
-
-      .demo-section .label {
-        display: inline-block;
-        font-size: 0.7em;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        padding: 2px 8px;
-        border-radius: 3px;
-        vertical-align: middle;
-        margin-left: 0.5em;
-      }
-
-      .label-same {
-        background: rgba(16, 124, 16, 0.15);
-        color: var(--success);
-      }
-
-      .label-cross {
-        background: rgba(0, 120, 212, 0.15);
+      .app_entry h2 {
         color: var(--accent);
-      }
-
-      /* Markup preview */
-      .markup {
-        background: var(--code-bg);
-        border: 1px solid var(--border);
-        border-radius: 6px;
-        padding: 0.8em 1em;
-        margin-bottom: 1em;
-        font-family: "Cascadia Code", "Consolas", monospace;
-        font-size: 0.85em;
-        white-space: pre-wrap;
-        overflow-x: auto;
-      }
-
-      /* The <install> element itself */
-      install {
-        display: inline-block;
-        padding: 10px 20px;
-        border: 1px solid var(--border);
-        border-radius: 6px;
-        background: var(--surface);
-        color: var(--text);
-        cursor: pointer;
-        user-select: none;
-        font-family: "Segoe UI", sans-serif;
-        font-size: 0.95em;
-        transition: box-shadow 0.15s, transform 0.15s, border-color 0.15s;
-      }
-
-      install:hover {
-        border-color: var(--accent);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-        transform: translateY(-1px);
-      }
-
-      /* Event log output */
-      .event-log {
-        font-family: "Cascadia Code", "Consolas", monospace;
-        font-size: 0.85em;
-        border: 1px solid var(--border);
-        border-radius: 6px;
-        padding: 1em;
-        margin-top: 0.8em;
-        background: var(--code-bg);
-        min-height: 60px;
-        white-space: pre-wrap;
-        color: var(--muted);
-      }
-
-      .event-log .success {
-        color: var(--success);
-      }
-
-      .event-log .error {
-        color: var(--error);
-      }
-
-      /* Instructions card */
-      .instructions {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 1.5em;
-        margin-top: 2em;
-      }
-
-      .instructions summary {
-        cursor: pointer;
+        font-size: 1.15rem;
         font-weight: 600;
-        font-size: 1em;
-        user-select: none;
+        margin: 0 0 0.2em;
       }
 
-      .instructions summary:hover {
-        color: var(--accent);
-      }
-
-      .instructions ul {
-        padding-left: 1.2em;
-        line-height: 1.8;
-      }
-
-      .instructions code,
-      code {
-        font-family: "Cascadia Code", "Consolas", monospace;
-        background: var(--code-bg);
-        padding: 2px 5px;
-        border-radius: 3px;
-        font-size: 0.9em;
-      }
-
-      .instructions pre {
-        background: var(--code-bg);
-        padding: 0.6em 1em;
-        border-radius: 6px;
-        overflow-x: auto;
-        font-family: "Cascadia Code", "Consolas", monospace;
-        font-size: 0.85em;
-      }
-
-      footer {
-        text-align: center;
-        margin-top: 2em;
-        color: var(--muted);
-        font-size: 0.85em;
-      }
-
-      footer a {
+      .app_entry h2 a {
         color: var(--accent);
         text-decoration: none;
       }
 
-      footer a:hover {
+      .app_entry h2 a:hover {
         text-decoration: underline;
+      }
+
+      .app_descrip {
+        color: var(--muted);
+        font-size: 0.9em;
+        line-height: 1.4;
+        margin: 0 0 0.5em;
+      }
+
+      /* The <install> element */
+      install {
+        display: inline-block;
+        padding: 0.65rem 1.2rem;
+        border: 1px solid var(--accent);
+        border-radius: 10px;
+        background: var(--surface);
+        color: var(--accent);
+        cursor: pointer;
+        user-select: none;
+        font-family: "Segoe UI", sans-serif;
+        font-size: 1.05em;
+        font-weight: 600;
+        transition: transform ease-in 0.2s, background ease-in 0.2s;
+      }
+
+      install:hover {
+        background: var(--accent);
+        color: var(--surface);
+        transform: scale(1.05);
+      }
+
+      @media only screen and (max-width: 600px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+        header {
+          flex-direction: column;
+          text-align: center;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <header>
-        <h1>The <code>&lt;install&gt;</code> Element</h1>
-        <p>A declarative HTML element for installing web apps</p>
-      </header>
+    <header>
+      <h1>The <code>&lt;install&gt;</code> Element Store</h1>
+      <install id="install-self" tabindex="0">Install the Store</install>
+    </header>
 
-      <!-- Demo 1: Same-origin install -->
-      <section class="demo-section">
-        <h2>
-          Install Current Page
-          <span class="label label-same">Same-Origin</span>
-        </h2>
-        <p>
-          Uses <code>&lt;install&gt;</code> with no attributes.
-          The browser installs the current page as a web app.
-        </p>
-        <div class="markup">&lt;install&gt;Install this app&lt;/install&gt;</div>
-        <install id="install-self" tabindex="0">
-          Install this app
-        </install>
-        <div id="self-output" class="event-log">Waiting for interaction...</div>
-      </section>
+    <main>
 
-      <!-- Demo 2: Cross-origin install -->
-      <section class="demo-section">
-        <h2>
-          Install Cross-Origin App
-          <span class="label label-cross">Cross-Origin</span>
-        </h2>
-        <p>
-          Uses the <code>installurl</code> attribute to install a PWA from
-          <code>https://mustjab.github.io/</code>.
-        </p>
-        <div class="markup">&lt;install installurl="https://mustjab.github.io/"&gt;Install external app&lt;/install&gt;</div>
-        <install id="install-cross" installurl="https://mustjab.github.io/" tabindex="0">
-          Install external app
-        </install>
-        <div id="cross-output" class="event-log">Waiting for interaction...</div>
-      </section>
+      <article class="app_entry">
+        <img src="https://mustjab.github.io/icon.png"
+             width="75" height="75" class="app_icon">
+        <div class="app_info">
+          <h2><a href="https://mustjab.github.io/" target="_blank">Matrix PWA</a></h2>
+          <p class="app_descrip">A PWA testing site with a Matrix-style animation.</p>
+        </div>
+        <install id="install-cross" installurl="https://mustjab.github.io/" tabindex="0">Install</install>
+      </article>
 
-      <!-- Setup instructions (collapsed by default) -->
-      <details class="instructions">
-        <summary>Setup &amp; Instructions</summary>
-        <h4>Enable the feature</h4>
-        <p>In the latest Edge/Chrome, enable the install element experiment:</p>
-        <ul>
-          <li>Navigate to <code>edge://flags</code> (or <code>chrome://flags</code>)</li>
-          <li>Search for <strong>Web Install</strong> and enable the flag</li>
-          <li>Restart the browser</li>
-        </ul>
-        <p>Or launch from the command line:</p>
-        <pre>msedge --enable-features=WebInstall</pre>
+      <article class="app_entry">
+        <img src="https://microsoftedge.github.io/Demos/pwa-pwastore/images/app-icons/pwinter.png"
+             width="75" height="75" class="app_icon">
+        <div class="app_info">
+          <h2><a href="https://diek.us/pwinter" target="_blank">The PWinter</a></h2>
+          <p class="app_descrip">The PWinter is your custom PWA icon generator!</p>
+        </div>
+        <install installurl="https://diek.us/pwinter/" manifestid="https://diek.us/pwinter/index.html?randomize=true" tabindex="0">Install</install>
+      </article>
 
-        <h4>Markup reference</h4>
-        <p>Same-origin (installs the current page):</p>
-        <pre>&lt;install&gt;Install this app&lt;/install&gt;</pre>
-        <p>Cross-origin (installs a different site):</p>
-        <pre>&lt;install installurl="https://example.com/"&gt;Install app&lt;/install&gt;</pre>
-      </details>
+      <article class="app_entry">
+        <img src="https://microsoftedge.github.io/Demos/pwa-pwastore/images/app-icons/pwamp.png"
+             width="75" height="75" class="app_icon">
+        <div class="app_info">
+          <h2><a href="https://microsoftedge.github.io/Demos/pwamp/" target="_blank">PWAmp</a></h2>
+          <p class="app_descrip">A music player PWA demo to play local audio files.</p>
+        </div>
+        <install installurl="https://microsoftedge.github.io/Demos/pwamp/" manifestid="https://microsoftedge.github.io/Demos/pwamp/" tabindex="0">Install</install>
+      </article>
 
-      <footer>
-        <a href="https://github.com/nicoreeves/nicoreeves.github.io/tree/main/pwa/WebInstall">Source on GitHub</a>
-      </footer>
-    </div>
-
-    <script>
-      const selfEl = document.getElementById('install-self');
-      const crossEl = document.getElementById('install-cross');
-      const selfOut = document.getElementById('self-output');
-      const crossOut = document.getElementById('cross-output');
-
-      function timestamp() {
-        return new Date().toLocaleTimeString();
-      }
-
-      function logEvent(outputDiv, message, type) {
-        const ts = `[${timestamp()}]`;
-        const cls = type === 'error' ? 'error' : 'success';
-        outputDiv.innerHTML = `<span class="${cls}">${ts} ${message}</span>`;
-      }
-
-      // Same-origin install handlers
-      selfEl.addEventListener('install', (e) => {
-        logEvent(selfOut, 'Install triggered for current page.', 'success');
-      });
-
-      selfEl.addEventListener('error', (e) => {
-        const msg = e.target.error ? e.target.error.message : 'Install failed.';
-        logEvent(selfOut, `Error: ${msg}`, 'error');
-      });
-
-      // Cross-origin install handlers
-      crossEl.addEventListener('install', (e) => {
-        const url = e.target.getAttribute('installurl') || '(unknown)';
-        logEvent(crossOut, `Install triggered for ${url}`, 'success');
-      });
-
-      crossEl.addEventListener('error', (e) => {
-        const msg = e.target.error ? e.target.error.message : 'Install failed.';
-        logEvent(crossOut, `Error: ${msg}`, 'error');
-      });
-    </script>
+      <article class="app_entry">
+        <img src="https://microsoftedge.github.io/Demos/pwa-pwastore/images/app-icons/bubble.png"
+             width="75" height="75" class="app_icon">
+        <div class="app_info">
+          <h2><a href="https://diek.us/bubble" target="_blank">Bubble</a></h2>
+          <p class="app_descrip">360° equirectangular picture viewer. For images from 360 cameras.</p>
+        </div>
+        <install installurl="https://diek.us/bubble/" manifestid="https://diek.us/bubble/index.html" tabindex="0">Install</install>
+      </article>
+    </main>
   </body>
 </html>
