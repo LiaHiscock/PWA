@@ -1,5 +1,5 @@
 {
-    "name": "<install> me!",
+    "name": "the PWA store",
     "start_url": "./index.html",
     "theme_color": "#EF88BE",
     "id": "kickoff-demo",
