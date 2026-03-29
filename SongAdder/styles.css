@@ -1,26 +1,74 @@
 body {
-    display: flex; flex-direction: column; align-items: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    display: flex;
+      justify-content: center;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: #333; background: #faf8fc; margin: 0; padding: 24px;
 }
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  padding: 32px 40px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
 h1 { font-weight: 300; font-size: 2em; margin-bottom: 24px; }
+#songName {
+  align-self: flex-start;
+  width: 240px;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 1.15em;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  color: #4a2d6e;
+  background: #fff;
+  margin-bottom: 20px;
+  outline: none;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+}
+
+#songName:focus {
+  box-shadow: 0 1px 8px rgba(205, 178, 235, 0.4);
+}
+
+#songName::placeholder {
+  color: #bbb;
+}
 .row {
     display: flex;
       align-items: center;
+      justify-content: center;
+        position: relative;
       gap: 12px;
       margin-bottom: 20px;
 }
 .row label { font-size: 1.4em; color: #999; }
 .row input {
-    width: 72px; padding: 10px 12px; font-size: 1.2em;
+    width: 56px;
+      padding: 8px 10px;
+      font-family: inherit;
+      font-size: 1.3em;
+      font-weight: 300;
+      letter-spacing: 0.5px;
     border: 1px solid #ddd; border-radius: 6px; text-align: center;
-    background: #fff; transition: border-color 0.2s;
+    background: #fff;
+      color: #4a2d6e;
+      transition: border-color 0.2s;
     -moz-appearance: textfield;
 }
 .row input:focus { outline: none; border-color: #CDB2EB; }
 .row input::-webkit-outer-spin-button,
 .row input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-.buttons { margin-bottom: 20px; display: flex; gap: 12px; }
+.buttons {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
 button {
     padding: 8px 20px; font-size: 1em;
     border: 1px solid #ddd; border-radius: 6px;
@@ -29,12 +77,44 @@ button {
 }
 button:hover { border-color: #CDB2EB; color: #333; }
 .delete-btn {
-    border: none; background: none; padding: 4px 8px;
+    position: absolute;
+      right: -32px;
+      border: none;
+      background: none;
+      padding: 4px 2px;
     font-size: 1.2em; cursor: pointer; opacity: 0.4;
     transition: opacity 0.2s;
 }
 .delete-btn:hover { opacity: 1; }
-#result {
-    margin-top: 20px; font-size: 1.6em; font-weight: 300;
-    color: #555; border-top: 1px solid #eee; padding-top: 16px;
+.section {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result {
+  margin-top: 0px;
+  font-size: 1.5em;
+  font-weight: 300;
+  color: #555;
+  /* border-top: 1px solid #eee; */
+  /* padding-top: 6px; */
+  text-align: center;
+}
+
+.label {
+  font-size: 0.85em;
+  color: #999;
+}
+
+#grandTotal {
+  margin-top: 0px;
+  font-size: 1.8em;
+  font-weight: 300;
+  color: #333;
+  /* border-top: 2px solid #CDB2EB; */
+  /* padding-top: 16px; */
+  text-align: left;
+  align-self: flex-start;
 }

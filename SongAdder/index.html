@@ -7,25 +7,46 @@
     <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
     <meta name="theme-color" content="#CDB2EB">
     <title>Song Adder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="container">
     <h1>Song Adder</h1>
 
-    <div class="buttons">
-        <button id="addRowBtn">+ Add Row</button>
-        <button id="clearBtn">Clear</button>
+    <input type="text" id="songName" placeholder="Playlist...">
+    
+    <div class="section" data-section="0">
+      <div class="buttons">
+          <button class="addRowBtn">+ Add Row</button>
+          <button class="clearBtn">Clear</button>
+          </div>
+          <div class="rows"></div>
+          <div class="result">Total: 0:00</div>
     </div>
 
-    <div id="rows"></div>
+    <div class="section" data-section="1">
+      <div class="buttons">
+        <button class="addRowBtn">+ Add Row</button>
+        <button class="clearBtn">Clear</button>
+      </div>
+      <div class="rows"></div>
+      <div class="result">Total: 0:00</div>
+    </div>
 
-    <div id="result">Total: 0:00</div>
+    <div id="grandTotal">Grand Total: 0:00</div>
+    </div>
 
     <script>
-        const rowsContainer = document.getElementById('rows');
-        const result = document.getElementById('result');
+                const songNameInput = document.getElementById('songName');
+                const grandTotal = document.getElementById('grandTotal');
+                const sections = document.querySelectorAll('.section');
 
-        function createRow() {
+                songNameInput.addEventListener('input', saveData);
+
+                function createRow(section) {
             const row = document.createElement('div');
             row.className = 'row';
             row.innerHTML = `
@@ -36,35 +57,91 @@
             `;
             row.querySelector('.delete-btn').addEventListener('click', () => {
                 row.remove();
-                calculate();
+              calculateAll();
+              saveData();
             });
             row.querySelectorAll('input').forEach(input => {
-                input.addEventListener('input', calculate);
+              input.addEventListener('input', () => { calculateAll(); saveData(); });
             });
-            rowsContainer.appendChild(row);
+                section.querySelector('.rows').appendChild(row);
         }
 
-        function calculate() {
+                function calculateSection(section) {
             let totalSeconds = 0;
-            rowsContainer.querySelectorAll('.row').forEach(row => {
+                section.querySelectorAll('.row').forEach(row => {
                 const min = parseInt(row.querySelector('.min').value) || 0;
                 const sec = parseInt(row.querySelector('.sec').value) || 0;
                 totalSeconds += min * 60 + sec;
             });
             const mins = Math.floor(totalSeconds / 60);
             const secs = totalSeconds % 60;
-          result.textContent = `Total: ${mins}:${String(secs).padStart(2, '0')}`;
+                            section.querySelector('.result').innerHTML = `${mins}:${String(secs).padStart(2, '0')}`;
+                            return totalSeconds;
+                          }
+
+                          function calculateAll() {
+                            let grandSeconds = 0;
+                            sections.forEach(section => {
+                              grandSeconds += calculateSection(section);
+                            });
+                            const mins = Math.floor(grandSeconds / 60);
+                            const secs = grandSeconds % 60;
+                            grandTotal.innerHTML = `${mins}:${String(secs).padStart(2, '0')}`;
+                          }
+
+                          function saveData() {
+                            const data = [];
+                            sections.forEach(section => {
+                              const rows = [];
+                              section.querySelectorAll('.row').forEach(row => {
+                                rows.push({
+                                  min: row.querySelector('.min').value,
+                                  sec: row.querySelector('.sec').value
+                                });
+                              });
+                              data.push(rows);
+                            });
+                            localStorage.setItem('songAdderSections', JSON.stringify(data));
+                            localStorage.setItem('songAdderName', songNameInput.value);
+                          }
+
+                          function loadData() {
+                            songNameInput.value = localStorage.getItem('songAdderName') || '';
+                            const data = localStorage.getItem('songAdderSections');
+                            if (data) {
+                              const allSections = JSON.parse(data);
+                              allSections.forEach((rows, i) => {
+                                if (sections[i]) {
+                                  rows.forEach(r => {
+                                    createRow(sections[i]);
+                                    const row = sections[i].querySelector('.rows').lastElementChild;
+                                    row.querySelector('.min').value = r.min;
+                                    row.querySelector('.sec').value = r.sec;
+                                  });
+                                }
+                              });
+                            } else {
+                              sections.forEach(section => {
+                                createRow(section);
+                                createRow(section);
+                              });
+                            }
+                            calculateAll();
         }
 
-        document.getElementById('addRowBtn').addEventListener('click', createRow);
-        document.getElementById('clearBtn').addEventListener('click', () => {
-            rowsContainer.querySelectorAll('input').forEach(input => input.value = '');
-            calculate();
+                sections.forEach(section => {
+                  section.querySelector('.addRowBtn').addEventListener('click', () => {
+                    createRow(section);
+                    saveData();
+                  });
+                  section.querySelector('.clearBtn').addEventListener('click', () => {
+                    section.querySelectorAll('input').forEach(input => input.value = '');
+                    calculateAll();
+                    saveData();
+                  });
         });
 
-        // Start with 2 rows
-        createRow();
-        createRow();
+                loadData();
 
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('./sw.js');
