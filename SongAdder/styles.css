@@ -95,13 +95,18 @@ button:hover { border-color: #CDB2EB; color: #333; }
   align-items: center;
 }
 
+.result-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  align-self: flex-end;
+}
+
 .result {
   margin-top: 0px;
   font-size: 1.5em;
   font-weight: 300;
   color: #555;
-  /* border-top: 1px solid #eee; */
-  /* padding-top: 6px; */
   text-align: center;
 }
 
