@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#CDB2EB">
+    <title>Song Adder</title>
+    <style>
+        body { display: flex; flex-direction: column; align-items: center; }
+        .row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+        .row input { width: 60px; -moz-appearance: textfield; }
+        .row input::-webkit-outer-spin-button,
+        .row input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        .buttons { margin-bottom: 8px; display: flex; gap: 8px; }
+        #result { margin-top: 12px; font-size: 1.2em; }
+    </style>
+</head>
+<body>
+    <h1>Song Adder</h1>
+
+    <div class="buttons">
+        <button id="addRowBtn">+ Add Row</button>
+        <button id="clearBtn">Clear</button>
+    </div>
+
+    <div id="rows"></div>
+
+    <div id="result">Total: 0 minutes : 00 seconds</div>
+
+    <script>
+        const rowsContainer = document.getElementById('rows');
+        const result = document.getElementById('result');
+
+        function createRow() {
+            const row = document.createElement('div');
+            row.className = 'row';
+            row.innerHTML = `
+                <input type="number" class="min" min="0" placeholder="0">
+                <label>:</label>
+                <input type="number" class="sec" min="0" max="59" placeholder="00">
+                <button class="delete-btn" title="Delete row">🗑️</button>
+            `;
+            row.querySelector('.delete-btn').addEventListener('click', () => {
+                row.remove();
+                calculate();
+            });
+            row.querySelectorAll('input').forEach(input => {
+                input.addEventListener('input', calculate);
+            });
+            rowsContainer.appendChild(row);
+        }
+
+        function calculate() {
+            let totalSeconds = 0;
+            rowsContainer.querySelectorAll('.row').forEach(row => {
+                const min = parseInt(row.querySelector('.min').value) || 0;
+                const sec = parseInt(row.querySelector('.sec').value) || 0;
+                totalSeconds += min * 60 + sec;
+            });
+            const mins = Math.floor(totalSeconds / 60);
+            const secs = totalSeconds % 60;
+            result.textContent = `Total: ${mins} minutes : ${String(secs).padStart(2, '0')} seconds`;
+        }
+
+        document.getElementById('addRowBtn').addEventListener('click', createRow);
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            rowsContainer.querySelectorAll('input').forEach(input => input.value = '');
+            calculate();
+        });
+
+        // Start with 2 rows
+        createRow();
+        createRow();
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js');
+        }
+    </script>
+</body>
+</html>

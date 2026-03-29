@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="32" fill="#CDB2EB"/>
+  <!-- tied eighth notes (upper-left) -->
+  <rect x="34" y="28" width="6" height="64" rx="3" fill="#fff"/>
+  <rect x="64" y="28" width="6" height="56" rx="3" fill="#fff"/>
+  <rect x="34" y="28" width="36" height="6" rx="3" fill="#fff"/>
+  <ellipse cx="28" cy="92" rx="12" ry="9" fill="#fff" transform="rotate(-45 28 92)"/>
+  <ellipse cx="58" cy="84" rx="12" ry="9" fill="#fff" transform="rotate(-45 58 84)"/>
+  <!-- plus (center, small) -->
+  <rect x="82" y="90" width="24" height="5" rx="2.5" fill="#fff"/>
+  <rect x="91.5" y="80" width="5" height="24" rx="2.5" fill="#fff"/>
+  <!-- clock (lower-right, larger) -->
+  <circle cx="140" cy="138" r="30" fill="none" stroke="#fff" stroke-width="5"/>
+  <line x1="140" y1="138" x2="140" y2="118" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+  <line x1="140" y1="138" x2="154" y2="138" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+</svg>
