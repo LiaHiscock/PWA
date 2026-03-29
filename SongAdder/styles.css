@@ -1,0 +1,37 @@
+body {
+    display: flex; flex-direction: column; align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #333; background: #faf8fc; margin: 0; padding: 24px;
+}
+h1 { font-weight: 300; font-size: 2em; margin-bottom: 24px; }
+.row {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+}
+.row label { font-size: 1.4em; color: #999; }
+.row input {
+    width: 72px; padding: 10px 12px; font-size: 1.2em;
+    border: 1px solid #ddd; border-radius: 6px; text-align: center;
+    background: #fff; transition: border-color 0.2s;
+    -moz-appearance: textfield;
+}
+.row input:focus { outline: none; border-color: #CDB2EB; }
+.row input::-webkit-outer-spin-button,
+.row input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.buttons { margin-bottom: 20px; display: flex; gap: 12px; }
+button {
+    padding: 8px 20px; font-size: 1em;
+    border: 1px solid #ddd; border-radius: 6px;
+    background: #fff; color: #555; cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+}
+button:hover { border-color: #CDB2EB; color: #333; }
+.delete-btn {
+    border: none; background: none; padding: 4px 8px;
+    font-size: 1.2em; cursor: pointer; opacity: 0.4;
+    transition: opacity 0.2s;
+}
+.delete-btn:hover { opacity: 1; }
+#result {
+    margin-top: 20px; font-size: 1.6em; font-weight: 300;
+    color: #555; border-top: 1px solid #eee; padding-top: 16px;
+}

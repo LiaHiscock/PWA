@@ -7,15 +7,7 @@
     <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
     <meta name="theme-color" content="#CDB2EB">
     <title>Song Adder</title>
-    <style>
-        body { display: flex; flex-direction: column; align-items: center; }
-        .row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-        .row input { width: 60px; -moz-appearance: textfield; }
-        .row input::-webkit-outer-spin-button,
-        .row input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-        .buttons { margin-bottom: 8px; display: flex; gap: 8px; }
-        #result { margin-top: 12px; font-size: 1.2em; }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Song Adder</h1>
@@ -27,7 +19,7 @@
 
     <div id="rows"></div>
 
-    <div id="result">Total: 0 minutes : 00 seconds</div>
+    <div id="result">Total: 0:00</div>
 
     <script>
         const rowsContainer = document.getElementById('rows');
@@ -61,7 +53,7 @@
             });
             const mins = Math.floor(totalSeconds / 60);
             const secs = totalSeconds % 60;
-            result.textContent = `Total: ${mins} minutes : ${String(secs).padStart(2, '0')} seconds`;
+          result.textContent = `Total: ${mins}:${String(secs).padStart(2, '0')}`;
         }
 
         document.getElementById('addRowBtn').addEventListener('click', createRow);

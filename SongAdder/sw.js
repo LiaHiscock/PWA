@@ -2,6 +2,7 @@ const CACHE_NAME = 'song-adder-v1';
 const ASSETS = [
     './',
     './index.html',
+    './styles.css',
     './icons/icon-192.svg',
     './icons/icon-512.svg'
 ];
