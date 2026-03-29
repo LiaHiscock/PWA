@@ -5,7 +5,10 @@ body {
 }
 h1 { font-weight: 300; font-size: 2em; margin-bottom: 24px; }
 .row {
-    display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+    display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
 }
 .row label { font-size: 1.4em; color: #999; }
 .row input {
