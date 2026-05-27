@@ -20,23 +20,23 @@
     
     <div class="section" data-section="0">
       <div class="buttons">
-          <button class="addRowBtn">+ Add Row</button>
+          <button class="addRowBtn" title="Add row">+</button>
+          <button class="clearBtn">Clear</button>
           </div>
           <div class="rows"></div>
           <div class="result-row">
             <div class="result">0:00</div>
-            <button class="clearBtn">Clear</button>
           </div>
     </div>
 
     <div class="section" data-section="1">
       <div class="buttons">
-        <button class="addRowBtn">+ Add Row</button>
+        <button class="addRowBtn" title="Add row">+</button>
+        <button class="clearBtn">Clear</button>
       </div>
       <div class="rows"></div>
       <div class="result-row">
         <div class="result">0:00</div>
-        <button class="clearBtn">Clear</button>
       </div>
     </div>
 
@@ -47,13 +47,20 @@
                 const songNameInput = document.getElementById('songName');
                 const grandTotal = document.getElementById('grandTotal');
                 const sections = document.querySelectorAll('.section');
+                const baseTitle = document.title;
 
-                songNameInput.addEventListener('input', saveData);
+                function updateTitle() {
+                  const name = songNameInput.value.trim();
+                  document.title = name ? `${baseTitle} – ${name}` : baseTitle;
+                }
+
+                songNameInput.addEventListener('input', () => { updateTitle(); saveData(); });
 
                 function createRow(section) {
             const row = document.createElement('div');
             row.className = 'row';
             row.innerHTML = `
+                <button class="drag-handle" title="Drag to reorder" tabindex="-1">⠿</button>
                 <input type="number" class="min" min="0" placeholder="0">
                 <label>:</label>
                 <input type="number" class="sec" min="0" max="59" placeholder="00">
@@ -67,7 +74,33 @@
             row.querySelectorAll('input').forEach(input => {
               input.addEventListener('input', () => { calculateAll(); saveData(); });
             });
+            const handle = row.querySelector('.drag-handle');
+            handle.addEventListener('mousedown', () => { row.draggable = true; });
+            handle.addEventListener('touchstart', () => { row.draggable = true; }, { passive: true });
+            row.addEventListener('dragstart', (e) => {
+              row.classList.add('dragging');
+              e.dataTransfer.effectAllowed = 'move';
+              e.dataTransfer.setData('text/plain', '');
+            });
+            row.addEventListener('dragend', () => {
+              row.classList.remove('dragging');
+              row.draggable = false;
+              calculateAll();
+              saveData();
+            });
                 section.querySelector('.rows').appendChild(row);
+        }
+
+        function getDragAfterElement(container, y) {
+          const els = [...container.querySelectorAll('.row:not(.dragging)')];
+          return els.reduce((closest, el) => {
+            const box = el.getBoundingClientRect();
+            const offset = y - box.top - box.height / 2;
+            if (offset < 0 && offset > closest.offset) {
+              return { offset, element: el };
+            }
+            return closest;
+          }, { offset: -Infinity }).element;
         }
 
                 function calculateSection(section) {
@@ -111,6 +144,7 @@
 
                           function loadData() {
                             songNameInput.value = localStorage.getItem('songAdderName') || '';
+                            updateTitle();
                             const data = localStorage.getItem('songAdderSections');
                             if (data) {
                               const allSections = JSON.parse(data);
@@ -142,6 +176,18 @@
                     section.querySelectorAll('input').forEach(input => input.value = '');
                     calculateAll();
                     saveData();
+                  });
+                  const rowsContainer = section.querySelector('.rows');
+                  rowsContainer.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    const dragging = document.querySelector('.row.dragging');
+                    if (!dragging) return;
+                    const afterEl = getDragAfterElement(rowsContainer, e.clientY);
+                    if (afterEl == null) {
+                      rowsContainer.appendChild(dragging);
+                    } else {
+                      rowsContainer.insertBefore(dragging, afterEl);
+                    }
                   });
         });
 

@@ -48,8 +48,8 @@ h1 { font-weight: 300; font-size: 2em; margin-bottom: 24px; }
 }
 .row label { font-size: 1.4em; color: #999; }
 .row input {
-    width: 56px;
-      padding: 8px 10px;
+    width: 42px;
+      padding: 8px 6px;
       font-family: inherit;
       font-size: 1.3em;
       font-weight: 300;
@@ -64,10 +64,17 @@ h1 { font-weight: 300; font-size: 2em; margin-bottom: 24px; }
 .row input::-webkit-outer-spin-button,
 .row input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .buttons {
+  position: relative;
+  align-self: stretch;
   margin-bottom: 10px;
   display: flex;
   gap: 12px;
-  justify-content: center;
+  justify-content: flex-start;
+}
+.clearBtn {
+  position: absolute;
+  top: 0;
+  right: -32px;
 }
 button {
     padding: 5px 14px;
@@ -78,6 +85,20 @@ button {
 }
 button:hover { border-color: #CDB2EB; color: #333; }
 .addRowBtn { background: #e8dcf0; border-color: transparent; }
+.drag-handle {
+    position: absolute;
+      left: -32px;
+      border: none;
+      background: none;
+      padding: 4px 6px;
+    font-size: 1.2em; cursor: grab; opacity: 0.4;
+    transition: opacity 0.2s;
+    color: #999;
+    line-height: 1;
+}
+.drag-handle:hover { opacity: 1; }
+.drag-handle:active { cursor: grabbing; }
+.row.dragging { opacity: 0.4; }
 .delete-btn {
     position: absolute;
       right: -32px;
@@ -99,7 +120,6 @@ button:hover { border-color: #CDB2EB; color: #333; }
   display: flex;
   align-items: center;
   gap: 12px;
-  align-self: flex-end;
 }
 
 .result {
