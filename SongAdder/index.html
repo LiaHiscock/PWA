@@ -41,6 +41,18 @@
     </div>
 
     <div id="grandTotal">Grand Total: 0:00</div>
+
+    <div class="section holding" data-section="holding">
+      <div class="section-label">Holding</div>
+      <div class="buttons">
+        <button class="addRowBtn" title="Add row">+</button>
+        <button class="clearBtn">Clear</button>
+      </div>
+      <div class="rows"></div>
+      <div class="result-row">
+        <div class="result">0:00</div>
+      </div>
+    </div>
     </div>
 
     <script>
@@ -119,7 +131,10 @@
                           function calculateAll() {
                             let grandSeconds = 0;
                             sections.forEach(section => {
-                              grandSeconds += calculateSection(section);
+                              const secs = calculateSection(section);
+                              if (!section.classList.contains('holding')) {
+                                grandSeconds += secs;
+                              }
                             });
                             const mins = Math.floor(grandSeconds / 60);
                             const secs = grandSeconds % 60;
@@ -160,6 +175,7 @@
                               });
                             } else {
                               sections.forEach(section => {
+                                if (section.classList.contains('holding')) return;
                                 createRow(section);
                                 createRow(section);
                               });

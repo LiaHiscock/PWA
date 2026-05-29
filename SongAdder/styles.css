@@ -145,3 +145,20 @@ button:hover { border-color: #CDB2EB; color: #333; }
   text-align: left;
   align-self: flex-start;
 }
+
+.section.holding {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px dashed #e0d4ee;
+  align-self: stretch;
+  align-items: center;
+}
+.section.holding .result { color: #999; }
+.section-label {
+  align-self: flex-start;
+  font-size: 0.75em;
+  color: #999;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
