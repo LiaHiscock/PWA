@@ -66,7 +66,27 @@
                   document.title = name ? `${baseTitle} – ${name}` : baseTitle;
                 }
 
-                songNameInput.addEventListener('input', () => { updateTitle(); saveData(); });
+                function currentPlaylist() {
+                  return decodeURIComponent(location.hash.slice(1) || '');
+                }
+
+                function storageKey(suffix, playlist) {
+                  if (playlist === undefined) playlist = currentPlaylist();
+                  return playlist ? `songAdder:${playlist}:${suffix}` : `songAdder:${suffix}`;
+                }
+
+                songNameInput.addEventListener('input', () => {
+                  const newName = songNameInput.value;
+                  const oldName = currentPlaylist();
+                  if (newName !== oldName) {
+                    localStorage.removeItem(storageKey('sections', oldName));
+                    localStorage.removeItem(storageKey('name', oldName));
+                    const newHash = newName ? '#' + encodeURIComponent(newName) : '';
+                    history.replaceState(null, '', location.pathname + location.search + newHash);
+                  }
+                  updateTitle();
+                  saveData();
+                });
 
                 function createRow(section) {
             const row = document.createElement('div');
@@ -153,14 +173,24 @@
                               });
                               data.push(rows);
                             });
-                            localStorage.setItem('songAdderSections', JSON.stringify(data));
-                            localStorage.setItem('songAdderName', songNameInput.value);
+                            localStorage.setItem(storageKey('sections'), JSON.stringify(data));
+                            localStorage.setItem(storageKey('name'), songNameInput.value);
                           }
 
                           function loadData() {
-                            songNameInput.value = localStorage.getItem('songAdderName') || '';
+                            sections.forEach(s => { s.querySelector('.rows').innerHTML = ''; });
+                            if (!location.hash) {
+                              const legacy = localStorage.getItem('songAdderSections');
+                              if (legacy && !localStorage.getItem(storageKey('sections'))) {
+                                localStorage.setItem(storageKey('sections'), legacy);
+                                localStorage.setItem(storageKey('name'), localStorage.getItem('songAdderName') || '');
+                                localStorage.removeItem('songAdderSections');
+                                localStorage.removeItem('songAdderName');
+                              }
+                            }
+                            songNameInput.value = localStorage.getItem(storageKey('name')) ?? currentPlaylist();
                             updateTitle();
-                            const data = localStorage.getItem('songAdderSections');
+                            const data = localStorage.getItem(storageKey('sections'));
                             if (data) {
                               const allSections = JSON.parse(data);
                               allSections.forEach((rows, i) => {
@@ -208,6 +238,8 @@
         });
 
                 loadData();
+
+                window.addEventListener('hashchange', loadData);
 
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('./sw.js');
