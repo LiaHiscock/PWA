@@ -11,12 +11,24 @@ if (navigator.serviceWorker) {
   registerServiceWorker();
 }
 
-const navigatorButton = document.getElementById("navigatorButton");
+const navigatorButtonPOC = document.getElementById("navigatorButtonPOC");
 
-navigatorButton.addEventListener("click", async() => {
+navigatorButtonPOC.addEventListener("click", async() => {
   try {
     let install_url = "https://kbhlee2121.github.io/pwa/web-install/manifest.webmanifest";
     await navigator.installFromManifest(install_url).then((result) => {
+      console.log(result);
+    });
+  } catch (err) {
+    console.error(err);
+  } 
+});
+
+const navigatorButtonDict = document.getElementById("navigatorButtonDict");
+
+navigatorButtonDict.addEventListener("click", async() => {
+  try {
+    await navigator.install({ manifest: "https://kbhlee2121.github.io/pwa/web-install/manifest.webmanifest" }).then((result) => {
       console.log(result);
     });
   } catch (err) {
