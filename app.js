@@ -11,27 +11,51 @@ if (navigator.serviceWorker) {
   registerServiceWorker();
 }
 
-const navigatorButtonPOC = document.getElementById("navigatorButtonPOC");
+const navigatorButtonNoParams = document.getElementById("navigatorButtonNoParams");
 
-navigatorButtonPOC.addEventListener("click", async() => {
+navigatorButtonNoParams.addEventListener("click", async () => {
   try {
-    let install_url = "https://kbhlee2121.github.io/pwa/web-install/manifest.webmanifest";
-    await navigator.installFromManifest(install_url).then((result) => {
-      console.log(result);
-    });
+    const result = await navigator.install();
+    console.log(result);
   } catch (err) {
     console.error(err);
-  } 
+  }
 });
 
-const navigatorButtonDict = document.getElementById("navigatorButtonDict");
+const navigatorButtonOneParam = document.getElementById("navigatorButtonOneParam");
 
-navigatorButtonDict.addEventListener("click", async() => {
+navigatorButtonOneParam.addEventListener("click", async () => {
   try {
-    await navigator.install({ manifest: "https://kbhlee2121.github.io/pwa/web-install/manifest.webmanifest" }).then((result) => {
-      console.log(result);
+    const result = await navigator.install({
+      manifest: "https://kbhlee2121.github.io/pwa/web-install/manifest.webmanifest"
     });
+    console.log(result);
   } catch (err) {
     console.error(err);
-  } 
+  }
+});
+
+const navigatorButtonTwoParams = document.getElementById("navigatorButtonTwoParams");
+
+navigatorButtonTwoParams.addEventListener("click", async () => {
+  try {
+    const result = await navigator.install({
+      manifest: "https://diek.us/bubble/",
+      id: "https://diek.us/bubble/"
+    });
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+const navigatorButtonDataErrorOneParam = document.getElementById("navigatorButtonDataErrorOneParam");
+
+navigatorButtonDataErrorOneParam.addEventListener("click", async () => {
+  try {
+    const result = await navigator.install({ manifest: "https://diek.us/bubble/" });
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
 });

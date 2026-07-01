@@ -6,18 +6,60 @@
     <title>Install by manifest tester</title>
   </head>
   <body>
-    <h1>Test site for installing by manifest url!</h1>
+    <h1>Manifest-first installs!</h1>
+
+    <h2 style="color:Tomato;">Intended Use Cases</h2>
+
+    <h3>0 params</h3>
+
     <p>Executes:</p>
     <pre><code>
-      navigator.installFromManifest("https://kbhlee2121.github.io/pwa/web-install/manifest.webmanifest");
+      navigator.install();
     </code></pre>
-    <button id="navigatorButtonPOC">Install</button>
+    <button id="navigatorButtonNoParams">Install</button>
+
+    <p>Executes:</p>
+    <pre><code>
+      &lt;install&gt;&lt;/install&gt;
+    </code></pre>
+    <install></install>
+
+    <h3>1 param</h3>
 
     <p>Executes:</p>
     <pre><code>
       navigator.install({ manifest: "https://kbhlee2121.github.io/pwa/web-install/manifest.webmanifest" });
     </code></pre>
-    <button id="navigatorButtonDict">Install</button>
+    <button id="navigatorButtonOneParam">Install</button>
+
+    <p>Executes:</p>
+    <pre><code>
+      &lt;install manifest="https://kbhlee2121.github.io/pwa/web-install/manifest.webmanifest"&gt;&lt;/install&gt;
+    </code></pre>
+    <install manifest="https://kbhlee2121.github.io/pwa/web-install/manifest.webmanifest"></install>
+
+    <h3>2 params</h3>
+    <p>Executes:</p>
+    <pre><code>
+      navigator.install({ manifest: "https://diek.us/bubble/", id: "https://diek.us/bubble/"});
+    </code></pre>
+    <button id="navigatorButtonTwoParams">Install</button>
+
+    <p>Executes:</p>
+    <pre><code>
+      &lt;install manifest="https://diek.us/bubble/" id="https://diek.us/bubble/"&gt;&lt;/install&gt;
+    </code></pre>
+    <install manifest="https://diek.us/bubble/" id="https://diek.us/bubble/"></install>
+
+    <h2 style="color:Tomato;">Data Errors</h2>
+
+    <h3>1 Param, manifest missing custom id</h3>
+    <p>Executes:</p>
+    <pre><code>
+      navigator.install({ manifest: "https://diek.us/bubble/" });
+    </code></pre>
+    <button id="navigatorButtonDataErrorOneParam">Install</button>
+
   </body>
   <script src="app.js"></script>
 </html>
