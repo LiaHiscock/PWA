@@ -40,7 +40,7 @@ const navigatorButtonTwoParams = document.getElementById("navigatorButtonTwoPara
 navigatorButtonTwoParams.addEventListener("click", async () => {
   try {
     const result = await navigator.install({
-      manifest: "https://diek.us/bubble/",
+      manifest: "https://diek.us/bubble/manifest.json",
       id: "https://diek.us/bubble/"
     });
     console.log(result);
@@ -53,7 +53,7 @@ const navigatorButtonDataErrorOneParam = document.getElementById("navigatorButto
 
 navigatorButtonDataErrorOneParam.addEventListener("click", async () => {
   try {
-    const result = await navigator.install({ manifest: "https://diek.us/bubble/" });
+    const result = await navigator.install({ manifest: "https://diek.us/bubble/manifest.json" });
     console.log(result);
   } catch (err) {
     console.error(err);
