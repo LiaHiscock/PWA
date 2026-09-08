@@ -49,6 +49,20 @@ navigatorButtonTwoParams.addEventListener("click", async () => {
   }
 });
 
+const navigatorButtonMediaControls = document.getElementById("navigatorButtonMediaControls");
+
+navigatorButtonMediaControls.addEventListener("click", async () => {
+  try {
+    const result = await navigator.install({
+      manifest: "/PWA/MediaControls/App1/manifest.webmanifest",
+      manifestId: "https://liahiscock.github.io/PWA/MediaControls/App1/index.html"
+    });
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 const navigatorButtonDataErrorOneParam = document.getElementById("navigatorButtonDataErrorOneParam");
 
 navigatorButtonDataErrorOneParam.addEventListener("click", async () => {

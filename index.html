@@ -52,6 +52,18 @@
     </code></pre>
     <install manifest="https://diek.us/bubble/manifest.json" id="https://diek.us/bubble/"></install>
 
+    <h2 style="color:Tomato;">relative URLs</h2>
+
+    <h3>Media Controls Tester</h3>
+    <p>Executes:</p>
+    <pre><code>
+      navigator.install({
+        manifest: "/PWA/MediaControls/App1/manifest.webmanifest",
+        manifestId: "https://liahiscock.github.io/PWA/MediaControls/App1/index.html"
+      });
+    </code></pre>
+    <button id="navigatorButtonMediaControls">Install Media Controls Tester</button>
+
     <h2 style="color:Tomato;">Data Errors</h2>
 
     <h3>1 Param, manifest missing custom id</h3>
