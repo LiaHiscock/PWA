@@ -78,22 +78,24 @@
     <h3>Relative manifest and manifestId with surrounding whitespace</h3>
     <p>Executes:</p>
     <pre><code>
-      navigator.install({
-        manifest: " \t /PWA/MediaControls/App1/manifest.webmanifest \n ",
-        manifestId: " \t /PWA/MediaControls/App1/index.html \n "
-      });
+      &lt;install manifest=" \t /PWA/MediaControls/App1/manifest.webmanifest \n "
+               manifestid=" \t /PWA/MediaControls/App1/index.html \n "&gt;
+      &lt;/install&gt;
     </code></pre>
-    <button id="navigatorButtonWhitespaceManifestId">Install Media Controls Tester (with whitespace)</button>
+    <install id="navigatorButtonWhitespaceManifestId"
+             manifest=" \t /PWA/MediaControls/App1/manifest.webmanifest \n "
+             manifestid=" \t /PWA/MediaControls/App1/index.html \n "></install>
 
     <h3>Relative manifestId mismatched</h3>
     <p>Executes:</p>
     <pre><code>
-      navigator.install({
-        manifest: "/PWA/MediaControls/App1/manifest.webmanifest",
-        manifestId: "/PWA/not-the-media-controls-app"
-      });
+      &lt;install manifest="/PWA/MediaControls/App1/manifest.webmanifest"
+               manifestid="/PWA/not-the-media-controls-app"&gt;
+      &lt;/install&gt;
     </code></pre>
-    <button id="navigatorButtonMismatchedManifestId">Install with mismatched manifestId</button>
+    <install id="navigatorButtonMismatchedManifestId"
+            manifest="/PWA/MediaControls/App1/manifest.webmanifest"
+            manifestid="/PWA/not-the-media-controls-app"></install>
 
     <h2 style="color:Tomato;">Data Errors</h2>
 
