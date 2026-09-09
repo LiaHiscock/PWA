@@ -62,3 +62,16 @@ navigatorButtonMediaControls.addEventListener("click", async () => {
     console.error(err);
   }
 });
+
+document.getElementById("relativeManifestIdMismatched").addEventListener("installresult", (event) => {
+  console.log("relativeManifestIdMismatched: " + event.result);
+});
+document.getElementById("installEmptyManifest").addEventListener("installresult", (event) => {
+  console.log("installEmptyManifest: " + event.result);
+});
+document.getElementById("installWhitespaceManifest").addEventListener("installresult", (event) => {
+  console.log("installWhitespaceManifest: " + event.result);
+});
+document.getElementById("installEmptyManifestId").addEventListener("installresult", (event) => {
+  console.log("installEmptyManifestId: " + event.result);
+});

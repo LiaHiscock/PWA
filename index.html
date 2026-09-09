@@ -54,7 +54,7 @@
 
     <h2 style="color:Tomato;">relative URLs</h2>
 
-    <h3>Relative manifest</h3>
+    <h3>Relative manifest resolves</h3>
     <p>Executes:</p>
     <pre><code>
       navigator.install({
@@ -64,7 +64,7 @@
     </code></pre>
     <button id="navigatorButtonMediaControls">Install Media Controls Tester</button>
 
-    <h3>Relative manifestid</h3>
+    <h3>Relative manifestid resolves</h3>
     <p>Executes:</p>
     <pre><code>
       &lt;install manifest="https://liahiscock.github.io/PWA/MediaControls/App1/manifest.webmanifest"
@@ -75,7 +75,7 @@
              manifest="https://liahiscock.github.io/PWA/MediaControls/App1/manifest.webmanifest"
              manifestid="/PWA/MediaControls/App1/index.html"></install>
 
-    <h3>Relative manifest and manifestId with surrounding whitespace</h3>
+    <h3>Relative manifest and manifestId with surrounding whitespace resolves</h3>
     <p>Executes:</p>
     <pre><code>
       &lt;install manifest=" \t /PWA/MediaControls/App1/manifest.webmanifest \n "
@@ -93,7 +93,7 @@
                manifestid="/PWA/not-the-media-controls-app"&gt;
       &lt;/install&gt;
     </code></pre>
-    <install id="navigatorButtonMismatchedManifestId"
+    <install id="relativeManifestIdMismatched"
             manifest="/PWA/MediaControls/App1/manifest.webmanifest"
             manifestid="/PWA/not-the-media-controls-app"></install>
 
