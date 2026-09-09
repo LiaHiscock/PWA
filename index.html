@@ -54,7 +54,7 @@
 
     <h2 style="color:Tomato;">relative URLs</h2>
 
-    <h3>Media Controls Tester</h3>
+    <h3>Relative manifest</h3>
     <p>Executes:</p>
     <pre><code>
       navigator.install({
@@ -64,7 +64,63 @@
     </code></pre>
     <button id="navigatorButtonMediaControls">Install Media Controls Tester</button>
 
+    <h3>Relative manifestid</h3>
+    <p>Executes:</p>
+    <pre><code>
+      &lt;install manifest="https://liahiscock.github.io/PWA/MediaControls/App1/manifest.webmanifest"
+               manifestid="/PWA/MediaControls/App1/index.html"&gt;
+      &lt;/install&gt;
+    </code></pre>
+    <install id="installRelativeManifestId"
+             manifest="https://liahiscock.github.io/PWA/MediaControls/App1/manifest.webmanifest"
+             manifestid="/PWA/MediaControls/App1/index.html"></install>
+
+    <h3>Relative manifest and manifestId with surrounding whitespace</h3>
+    <p>Executes:</p>
+    <pre><code>
+      navigator.install({
+        manifest: " \t /PWA/MediaControls/App1/manifest.webmanifest \n ",
+        manifestId: " \t /PWA/MediaControls/App1/index.html \n "
+      });
+    </code></pre>
+    <button id="navigatorButtonWhitespaceManifestId">Install Media Controls Tester (with whitespace)</button>
+
+    <h3>Relative manifestId mismatched</h3>
+    <p>Executes:</p>
+    <pre><code>
+      navigator.install({
+        manifest: "/PWA/MediaControls/App1/manifest.webmanifest",
+        manifestId: "/PWA/not-the-media-controls-app"
+      });
+    </code></pre>
+    <button id="navigatorButtonMismatchedManifestId">Install with mismatched manifestId</button>
+
     <h2 style="color:Tomato;">Data Errors</h2>
+
+    <h3>Empty manifest attribute</h3>
+    <p>Executes:</p>
+    <pre><code>
+      &lt;install manifest=""&gt;&lt;/install&gt;
+    </code></pre>
+    <install id="installEmptyManifest" manifest=""></install>
+
+    <h3>Whitespace-only manifest attribute</h3>
+    <p>Executes:</p>
+    <pre><code>
+      &lt;install manifest=" "&gt;&lt;/install&gt;
+    </code></pre>
+    <install id="installWhitespaceManifest" manifest=" "></install>
+
+    <h3>Empty manifestid attribute</h3>
+    <p>Executes:</p>
+    <pre><code>
+      &lt;install manifest="/PWA/MediaControls/App1/manifest.webmanifest"
+               manifestid=""&gt;
+      &lt;/install&gt;
+    </code></pre>
+    <install id="installEmptyManifestId"
+             manifest="/PWA/MediaControls/App1/manifest.webmanifest"
+             manifestid=""></install>
 
     <h3>1 Param, manifest missing custom id</h3>
     <p>Executes:</p>

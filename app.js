@@ -63,6 +63,60 @@ navigatorButtonMediaControls.addEventListener("click", async () => {
   }
 });
 
+const setInstallResult = (outputId, result) => {
+  document.getElementById(outputId).textContent = result;
+  console.log(`${outputId}: ${result}`);
+};
+
+const runNavigatorInstallTest = async (options, outputId) => {
+  try {
+    const result = await navigator.install(options);
+    setInstallResult(outputId, result);
+  } catch (err) {
+    setInstallResult(outputId, `Exception: ${err}`);
+    console.error(err);
+  }
+};
+
+const navigatorInstallTests = [
+  {
+    buttonId: "navigatorButtonWhitespaceManifestId",
+    outputId: "navigatorWhitespaceManifestIdResult",
+    options: {
+      manifest: " \t /PWA/MediaControls/App1/manifest.webmanifest \n",
+      manifestId: " \t /PWA/MediaControls/App1/index.html \n "
+    }
+  },
+  {
+    buttonId: "navigatorButtonMismatchedManifestId",
+    outputId: "navigatorMismatchedManifestIdResult",
+    options: {
+      manifest: "/PWA/MediaControls/App1/manifest.webmanifest",
+      manifestId: "/PWA/not-the-media-controls-app"
+    }
+  }
+];
+
+navigatorInstallTests.forEach(({ buttonId, outputId, options }) => {
+  document.getElementById(buttonId).addEventListener("click", () => {
+    runNavigatorInstallTest(options, outputId);
+  });
+});
+
+const elementInstallTests = [
+  ["installCurrentDocument", "installCurrentDocumentResult"],
+  ["installRelativeManifestId", "installRelativeManifestIdResult"],
+  ["installEmptyManifest", "installEmptyManifestResult"],
+  ["installWhitespaceManifest", "installWhitespaceManifestResult"],
+  ["installEmptyManifestId", "installEmptyManifestIdResult"]
+];
+
+elementInstallTests.forEach(([installId, outputId]) => {
+  document.getElementById(installId).addEventListener("installresult", (event) => {
+    setInstallResult(outputId, event.result);
+  });
+});
+
 const navigatorButtonDataErrorOneParam = document.getElementById("navigatorButtonDataErrorOneParam");
 
 navigatorButtonDataErrorOneParam.addEventListener("click", async () => {
