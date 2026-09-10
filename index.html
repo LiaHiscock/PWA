@@ -52,7 +52,7 @@
     </code></pre>
     <install manifest="https://diek.us/bubble/manifest.json" id="https://diek.us/bubble/"></install>
 
-    <h2 style="color:Tomato;">relative URLs</h2>
+    <h2 style="color:Tomato;">relative URLs / whitespace</h2>
 
     <h3>Relative manifest resolves</h3>
     <p>Executes:</p>
@@ -86,6 +86,19 @@
              manifest="  /PWA/MediaControls/App1/manifest.webmanifest  "
              manifestid="  /PWA/MediaControls/App1/index.html  "></install>
 
+    <h3>Valid manifest and empty manifestid</h3>
+    <p>Executes:</p>
+    <pre><code>
+      &lt;install manifest="https://kbhlee2121.github.io/pwa/web-install/manifest.webmanifest"
+               manifestid=""&gt;
+      &lt;/install&gt;
+    </code></pre>
+    <install id="installEmptyManifestId"
+             manifest="https://kbhlee2121.github.io/pwa/web-install/manifest.webmanifest"
+             manifestid=""></install>
+
+    <h2 style="color:Tomato;">Data Errors</h2>
+
     <h3>Relative manifestId mismatched</h3>
     <p>Executes:</p>
     <pre><code>
@@ -96,8 +109,6 @@
     <install id="relativeManifestIdMismatched"
             manifest="/PWA/MediaControls/App1/manifest.webmanifest"
             manifestid="/PWA/not-the-media-controls-app"></install>
-
-    <h2 style="color:Tomato;">Data Errors</h2>
 
     <h3>Empty manifest attribute</h3>
     <p>Executes:</p>
