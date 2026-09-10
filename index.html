@@ -78,13 +78,13 @@
     <h3>Relative manifest and manifestId with surrounding whitespace resolves</h3>
     <p>Executes:</p>
     <pre><code>
-      &lt;install manifest=" \t /PWA/MediaControls/App1/manifest.webmanifest \n "
-               manifestid=" \t /PWA/MediaControls/App1/index.html \n "&gt;
+      &lt;install manifest="  /PWA/MediaControls/App1/manifest.webmanifest  "
+               manifestid="  /PWA/MediaControls/App1/index.html  "&gt;
       &lt;/install&gt;
     </code></pre>
     <install id="navigatorButtonWhitespaceManifestId"
-             manifest=" \t /PWA/MediaControls/App1/manifest.webmanifest \n "
-             manifestid=" \t /PWA/MediaControls/App1/index.html \n "></install>
+             manifest="  /PWA/MediaControls/App1/manifest.webmanifest  "
+             manifestid="  /PWA/MediaControls/App1/index.html  "></install>
 
     <h3>Relative manifestId mismatched</h3>
     <p>Executes:</p>
@@ -109,9 +109,9 @@
     <h3>Whitespace-only manifest attribute</h3>
     <p>Executes:</p>
     <pre><code>
-      &lt;install manifest=" "&gt;&lt;/install&gt;
+      &lt;install manifest="  "&gt;&lt;/install&gt;
     </code></pre>
-    <install id="installWhitespaceManifest" manifest=" "></install>
+    <install id="installWhitespaceManifest" manifest="  "></install>
 
     <h3>Empty manifestid attribute</h3>
     <p>Executes:</p>
